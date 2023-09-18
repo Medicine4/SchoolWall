@@ -3,7 +3,7 @@ const CATEGORIES = [
   { name: "寻人", color: "#ef4444" },
   { name: "表白", color: "#16a34a" },
   { name: "提问/解答", color: "#eab308" },
-  { name: "null", color: "#db2777" },
+  { name: "交易", color: "#db2777" },
   { name: "吐槽", color: "#14b8a6" },
   { name: "分享", color: "#f97316" },
   { name: "热点", color: "#8b5cf6" },
@@ -41,7 +41,5 @@ const initialFacts = [
     createdIn: 2015,
   },
 ];
-
-// LINK TO APP SAMPLE DATA: https://docs.google.com/spreadsheets/d/1eeldcA_OwP4DHYEvjG0kDe0cRys-cDPhc_E9P9G1e3I/edit#gid=0
 
 // 👍 🤯 ⛔️
