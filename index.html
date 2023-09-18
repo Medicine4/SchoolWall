@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>School Wall</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Coiny&family=Sono&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="root">
+      <header class="header">
+        <div class="logo">
+          <img src="./img/logo.png" alt="School Wall" />
+          <h1>校园墙<h1/>
+        </div>
+
+        <button class="btn btn-large btn-open">share</button>
+      </header>
+
+      <form class="fact-form">
+        <input type="text" placeholder="写下你的信息~" />
+        <span>200</span>
+        <label for="image">上传图片：</label>
+        <input type="file" id="image" name="imageFile" accept="image/*" multiple/>
+        <select>
+            <option>信息类别：</option>
+            <option value="寻人">寻人</option>
+            <option value="寻物">寻物</option>
+            <option value="提问">提问</option>
+            <option value="表白">表白</option>
+            <option value="分享">分享</option>
+        </select>
+        <button class="btn btn-large">post</button>
+      </form>
+
+      <main>
+        <aside>
+          <ul>
+            <li class="category">
+                <button class="btn btn-all-category">ALL</button>
+            </li>
+            <li class="category">
+                <button class="btn btn-category" style="background-color: #3b82f6;">寻人</button>
+            </li>
+            <li class="category">
+                <button class="btn btn-category" style="background-color: #16a34a;">表白</button>
+            </li>
+          </ul>
+        </aside>
+        <section>
+          <ul class="facts-list">
+            <li class="fact">
+                <p>The shortest war in history lasted 38 minutes! It was between Britain and Zanzibar on August 27, 1896. It was over the ascension of the next Sultan in Zanzibar and resulted in a British victory.</p>
+                <img src="" alt="">
+                <span class="tag" style="background-color: #3b82f6;">寻人</span>
+                <div class="vote-button">
+                    <button>👍 24</button>
+                <button>🤯 9</button>
+                <button>⛔️ 4</button>
+                </div>
+            </li>
+            <li class="fact">
+                <p>Lisbon is the capital of Portugal.</p>
+                <img src="" alt="">
+                <span class="tag" style="background-color: #16a34a;">表白</span>
+                <div class="vote-button">
+                    <button>👍 24</button>
+                <button>🤯 9</button>
+                <button>⛔️ 4</button>
+                </div>
+            </li>
+          </ul>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
