@@ -1,20 +1,20 @@
 const CATEGORIES = [
-  { name: "technology", color: "#3b82f6" },
-  { name: "science", color: "#16a34a" },
-  { name: "finance", color: "#ef4444" },
-  { name: "society", color: "#eab308" },
-  { name: "entertainment", color: "#db2777" },
-  { name: "health", color: "#14b8a6" },
-  { name: "history", color: "#f97316" },
-  { name: "news", color: "#8b5cf6" },
+  { name: "寻物", color: "#3b82f6" },
+  { name: "寻人", color: "#ef4444" },
+  { name: "表白", color: "#16a34a" },
+  { name: "提问/解答", color: "#eab308" },
+  { name: "null", color: "#db2777" },
+  { name: "吐槽", color: "#14b8a6" },
+  { name: "分享", color: "#f97316" },
+  { name: "热点", color: "#8b5cf6" },
 ];
 
 const initialFacts = [
   {
     id: 1,
-    text: "React is being developed by Meta (formerly facebook)",
-    source: "https://opensource.fb.com/",
-    category: "technology",
+    text: "谁看见我的小鞋啦😭如图绿色的这一只，今天下午丢的，不知道丢在哪里了。球球友友们找找呜呜呜",
+    category: "寻物",
+    img: "https://gcamfziajstnnexlgztc.supabase.co/storage/v1/object/public/factImages/whereisshoes.jpg",
     votesInteresting: 24,
     votesMindblowing: 9,
     votesFalse: 4,
@@ -22,10 +22,9 @@ const initialFacts = [
   },
   {
     id: 2,
-    text: "Millennial dads spend 3 times as much time with their kids than their fathers spent with them. In 1982, 43% of fathers had never changed a diaper. Today, that number is down to 3%",
-    source:
-      "https://www.mother.ly/parenting/millennial-dads-spend-more-time-with-their-kids",
-    category: "society",
+    text: "或许这是你的小鞋吗？我在体育馆出来的这个拐角看到它，帮你放在路边啦~",
+    img: "https://gcamfziajstnnexlgztc.supabase.co/storage/v1/object/public/factImages/shoes.jpg",
+    category: "寻物",
     votesInteresting: 11,
     votesMindblowing: 2,
     votesFalse: 0,
@@ -33,9 +32,9 @@ const initialFacts = [
   },
   {
     id: 3,
-    text: "Lisbon is the capital of Portugal",
-    source: "https://en.wikipedia.org/wiki/Lisbon",
-    category: "society",
+    text: "请问大家，三楼的肠粉早上还开吗？好想去吃",
+    img: NULL,
+    category: "提问/解答",
     votesInteresting: 8,
     votesMindblowing: 3,
     votesFalse: 1,

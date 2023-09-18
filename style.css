@@ -162,14 +162,14 @@ ul {
   margin-bottom: 16px;
   padding: 16px 24px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 24px;
 }
 
 @media (max-width: 1200px) {
   .fact {
     flex-direction: column;
-    align-items: flex-end;
+    /* align-items: stretch; */
     gap: 16px;
   }
 }
@@ -177,16 +177,29 @@ ul {
 .tag {
   font-size: 16px;
   font-family: inherit;
-  padding: 3px 10px 0 10px;
+  padding: 2px 10px 1px 10px;
   border-radius: 100px;
   white-space: nowrap;
+  margin-left: 16px;
+}
+
+.imgButton {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.imgButton img {
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
 }
 
 .vote-button {
   display: flex;
   flex-shrink: 0;
   gap: 8px;
-  margin-left: auto;
+  /* margin-left: auto; */
 }
 
 .vote-button button {
@@ -200,6 +213,8 @@ ul {
   padding: 6px 12px;
   cursor: pointer;
   transition: 0.3s;
+  width: 72px;
+  height: 36px;
 }
 
 .vote-button button:hover {
