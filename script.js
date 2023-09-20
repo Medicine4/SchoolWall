@@ -33,7 +33,7 @@ const initialFacts = [
   {
     id: 3,
     text: "请问大家，三楼的肠粉早上还开吗？好想去吃",
-    img: NULL,
+    img: "",
     category: "提问/解答",
     votesInteresting: 8,
     votesMindblowing: 3,
@@ -43,7 +43,7 @@ const initialFacts = [
 ];
 
 const btn = document.querySelector(".btn-open");
-const from = document.querySelector(".fact-form");
+const form = document.querySelector(".fact-form");
 const factList = document.querySelector(".facts-list");
 
 factList.innerHTML = "";
@@ -63,4 +63,49 @@ async function loadFacts() {
     }
   );
   const data = await res.json();
+  createFactsList(data);
 }
+
+// createFactsList(initialFacts);
+
+function createFactsList(dataArr) {
+  const htmlArr = dataArr.map(
+    (el) =>
+      `<li class="fact">
+                <p>${el.text}
+                    <span class="tag" style="background-color: ${
+                      CATEGORIES.find((cat) => cat.name === el.category)?.color
+                    };">${el.category}</span>
+                </p>
+                <div class="imgButton">${haveImg(el)}
+                    
+                    <div class="vote-button">
+                        <button>👍 24</button>
+                        <button>🤯 9</button>
+                        <button>⛔️ 4</button>
+                    </div>
+                </div>
+            </li>`
+  );
+
+  const html = htmlArr.join("");
+  factList.insertAdjacentHTML("afterbegin", html);
+}
+
+function haveImg(fact) {
+  if (fact.img === "NULL") {
+    return "";
+  } else {
+    return `<img src=${fact.img} alt="">`;
+  }
+}
+
+btn.addEventListener("click", function () {
+  if (form.classList.contains("hidden")) {
+    form.classList.remove("hidden");
+    btn.textContent = "close";
+  } else {
+    form.classList.add("hidden");
+    btn.textContent = "share";
+  }
+});
