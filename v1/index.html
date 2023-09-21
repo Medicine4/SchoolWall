@@ -5,9 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>School Wall</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Coiny&family=Sono&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Coiny&family=Sono&display=swap"
+      rel="stylesheet"
+    />
 
     <link rel="stylesheet" href="style.css" />
   </head>
@@ -16,7 +19,7 @@
       <header class="header">
         <div class="logo">
           <img src="./img/logo.png" alt="School Wall" />
-          <h1>校园墙<h1/>
+          <h1>校园墙</h1>
         </div>
 
         <button class="btn btn-large btn-open">share</button>
@@ -26,14 +29,20 @@
         <input type="text" placeholder="写下你的信息~" />
         <span>200</span>
         <label for="image">上传图片（可选）：</label>
-        <input type="file" id="image" name="imageFile" accept="image/*" multiple/>
+        <input
+          type="file"
+          id="image"
+          name="imageFile"
+          accept="image/*"
+          multiple
+        />
         <select>
-            <option>信息类别：</option>
-            <option value="寻人">寻人</option>
-            <option value="寻物">寻物</option>
-            <option value="提问">提问</option>
-            <option value="表白">表白</option>
-            <option value="分享">分享</option>
+          <option>信息类别：</option>
+          <option value="寻人">寻人</option>
+          <option value="寻物">寻物</option>
+          <option value="提问">提问</option>
+          <option value="表白">表白</option>
+          <option value="分享">分享</option>
         </select>
         <button class="btn btn-large">post</button>
       </form>
@@ -42,13 +51,23 @@
         <aside>
           <ul>
             <li class="category">
-                <button class="btn btn-all-category">ALL</button>
+              <button class="btn btn-all-category">ALL</button>
             </li>
             <li class="category">
-                <button class="btn btn-category" style="background-color: #3b82f6;">寻人</button>
+              <button
+                class="btn btn-category"
+                style="background-color: #3b82f6"
+              >
+                寻人
+              </button>
             </li>
             <li class="category">
-                <button class="btn btn-category" style="background-color: #16a34a;">表白</button>
+              <button
+                class="btn btn-category"
+                style="background-color: #16a34a"
+              >
+                表白
+              </button>
             </li>
           </ul>
         </aside>
@@ -56,44 +75,54 @@
         <section>
           <ul class="facts-list">
             <li class="fact">
-                <p>谁看见我的小鞋啦😭如图绿色的这一只，今天下午丢的，不知道丢在哪里了。球球友友们找找呜呜呜
-                    <span class="tag" style="background-color: #3b82f6;">寻物</span>
-                </p>
-                <div class="imgButton">
-                    <img src="https://gcamfziajstnnexlgztc.supabase.co/storage/v1/object/public/factImages/whereisshoes.jpg" alt="">
-                    <div class="vote-button">
-                        <button>👍 24</button>
-                        <button>🤯 9</button>
-                        <button>⛔️ 4</button>
-                    </div>
+              <p>
+                谁看见我的小鞋啦😭如图绿色的这一只，今天下午丢的，不知道丢在哪里了。球球友友们找找呜呜呜
+                <span class="tag" style="background-color: #3b82f6">寻物</span>
+              </p>
+              <div class="imgButton">
+                <img
+                  src="https://gcamfziajstnnexlgztc.supabase.co/storage/v1/object/public/factImages/whereisshoes.jpg"
+                  alt=""
+                />
+                <div class="vote-button">
+                  <button>👍 24</button>
+                  <button>🤯 9</button>
+                  <button>⛔️ 4</button>
                 </div>
+              </div>
             </li>
             <li class="fact">
-                <p>或许这是你的小鞋吗？我在体育馆出来的这个拐角看到它，帮你放在路边啦
-                    <span class="tag" style="background-color: #16a34a;">表白</span>
-                </p>
-                <div class="imgButton"> 
-                    <img src="https://gcamfziajstnnexlgztc.supabase.co/storage/v1/object/public/factImages/shoes.jpg" alt="">
+              <p>
+                或许这是你的小鞋吗？我在体育馆出来的这个拐角看到它，帮你放在路边啦
+                <span class="tag" style="background-color: #16a34a">表白</span>
+              </p>
+              <div class="imgButton">
+                <img
+                  src="https://gcamfziajstnnexlgztc.supabase.co/storage/v1/object/public/factImages/shoes.jpg"
+                  alt=""
+                />
                 <div class="vote-button">
-                    <button>👍 36</button>
-                    <button>🤯 4</button>
-                    <button>⛔️ 1</button>
+                  <button>👍 36</button>
+                  <button>🤯 4</button>
+                  <button>⛔️ 1</button>
                 </div>
-                </div>
+              </div>
             </li>
             <li class="fact">
-                <p>请问大家，三楼的肠粉早上还开吗？好想去吃
-                    <span class="tag" style="background-color: #16a34a;">提问/解答</span>
-                </p>
-                <div class="imgButton"> 
-                    <!-- <img src="" alt=""> -->
+              <p>
+                请问大家，三楼的肠粉早上还开吗？好想去吃
+                <span class="tag" style="background-color: #16a34a"
+                  >提问/解答</span
+                >
+              </p>
+              <div class="imgButton">
+                <!-- <img src="" alt=""> -->
                 <div class="vote-button">
-                    <button>👍 36</button>
-                    <button>🤯 4</button>
-                    <button>⛔️ 1</button>
+                  <button>👍 36</button>
+                  <button>🤯 4</button>
+                  <button>⛔️ 1</button>
                 </div>
-                </div>
-                
+              </div>
             </li>
           </ul>
         </section>

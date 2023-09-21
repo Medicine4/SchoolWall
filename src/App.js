@@ -1,5 +1,166 @@
+import { useState } from "react";
+import "./style.css";
+
+const CATEGORIES = [
+  { name: "寻物", color: "#3b82f6" },
+  { name: "寻人", color: "#ef4444" },
+  { name: "表白", color: "#16a34a" },
+  { name: "提问/解答", color: "#eab308" },
+  { name: "交易", color: "#db2777" },
+  { name: "吐槽", color: "#14b8a6" },
+  { name: "分享", color: "#f97316" },
+  { name: "热点", color: "#8b5cf6" },
+];
+
+const initialFacts = [
+  {
+    id: 1,
+    text: "谁看见我的小鞋啦😭如图绿色的这一只，今天下午丢的，不知道丢在哪里了。球球友友们找找呜呜呜",
+    category: "寻物",
+    img: "https://gcamfziajstnnexlgztc.supabase.co/storage/v1/object/public/factImages/whereisshoes.jpg",
+    votesInteresting: 24,
+    votesMindblowing: 9,
+    votesFalse: 4,
+    createdIn: 2021,
+  },
+  {
+    id: 2,
+    text: "或许这是你的小鞋吗？我在体育馆出来的这个拐角看到它，帮你放在路边啦~",
+    img: "https://gcamfziajstnnexlgztc.supabase.co/storage/v1/object/public/factImages/shoes.jpg",
+    category: "寻物",
+    votesInteresting: 11,
+    votesMindblowing: 2,
+    votesFalse: 0,
+    createdIn: 2019,
+  },
+  {
+    id: 3,
+    text: "请问大家，三楼的肠粉早上还开吗？好想去吃",
+    img: "NULL",
+    category: "提问/解答",
+    votesInteresting: 8,
+    votesMindblowing: 3,
+    votesFalse: 1,
+    createdIn: 2015,
+  },
+];
+
 function App() {
-  return <h1>hello world!</h1>;
+  const [showForm, setShowForm] = useState(false);
+  const [facts, setFacts] = useState(initialFacts);
+
+  return (
+    <>
+      <Header showForm={showForm} setShowForm={setShowForm} />
+      {showForm ? <NewFactForm /> : null}
+      <main>
+        <CategoryFliter />
+        <FactList facts={facts} />
+      </main>
+    </>
+  );
+}
+
+function Header({ showForm, setShowForm }) {
+  return (
+    <header className="header">
+      <div className="logo">
+        <img src="logo.png" alt="School Wall" />
+        <h1>校园墙</h1>
+      </div>
+
+      <button
+        className="btn btn-large btn-open"
+        onClick={() => (showForm ? setShowForm(false) : setShowForm(true))}
+      >
+        {showForm ? "close" : "share"}
+      </button>
+    </header>
+  );
+}
+
+function NewFactForm() {
+  return (
+    <form className="fact-form">
+      <input type="text" placeholder="写下你的信息~" />
+      <span>200</span>
+      <label for="image">上传图片（可选）：</label>
+      <input
+        type="file"
+        id="image"
+        name="imageFile"
+        accept="image/*"
+        multiple
+      />
+      <select>
+        <option>信息类别：</option>
+        <option value="寻人">寻人</option>
+        <option value="寻物">寻物</option>
+        <option value="提问">提问</option>
+        <option value="表白">表白</option>
+        <option value="分享">分享</option>
+      </select>
+      <button className="btn btn-large">post</button>
+    </form>
+  );
+}
+
+function CategoryFliter() {
+  const categories = CATEGORIES;
+
+  return (
+    <aside>
+      <ul>
+        <li className="category">
+          <button className="btn btn-all-category">ALL</button>
+        </li>
+        {categories.map((cat) => (
+          <li className="category">
+            <button
+              className="btn btn-category"
+              style={{ backgroundColor: cat.color }}
+            >
+              {cat.name}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </aside>
+  );
+}
+
+function FactList({ facts }) {
+  return (
+    <section>
+      <ul className="facts-list">
+        {facts.map((fact) => (
+          <li className="fact">
+            <p>
+              {fact.text}
+              <span
+                className="tag"
+                style={{
+                  backgroundColor: CATEGORIES.find(
+                    (cat) => cat.name === fact.category
+                  ).color,
+                }}
+              >
+                {fact.category}
+              </span>
+            </p>
+            <div className="imgButton">
+              {fact.img === "NULL" ? "" : <img src={fact.img} />}
+              <div className="vote-button">
+                <button>👍 {fact.votesInteresting}</button>
+                <button>🤯 {fact.votesMindblowing}</button>
+                <button>⛔️ {fact.votesFalse}</button>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
 }
 
 export default App;
