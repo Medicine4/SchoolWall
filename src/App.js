@@ -80,25 +80,36 @@ function Header({ showForm, setShowForm }) {
 }
 
 function NewFactForm() {
+  const [text, setText] = useState("");
+  const [img, setImg] = useState("");
+  const [category, setCategory] = useState("");
+  const textLength = text.length;
+
   return (
     <form className="fact-form">
-      <input type="text" placeholder="写下你的信息~" />
-      <span>200</span>
+      <input
+        type="text"
+        placeholder="写下你的信息~"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
+      <span>{200 - textLength}</span>
       <label for="image">上传图片（可选）：</label>
       <input
         type="file"
         id="image"
         name="imageFile"
         accept="image/*"
-        multiple
+        value={img}
+        onChange={(e) => setImg(e.target.value)}
       />
-      <select>
-        <option>信息类别：</option>
-        <option value="寻人">寻人</option>
-        <option value="寻物">寻物</option>
-        <option value="提问">提问</option>
-        <option value="表白">表白</option>
-        <option value="分享">分享</option>
+      <select value={category} onChange={(e) => setCategory(e.target.value)}>
+        <option value="">信息类别：</option>
+        {CATEGORIES.map((cat) => (
+          <option key={cat.name} value={cat.name}>
+            {cat.name}
+          </option>
+        ))}
       </select>
       <button className="btn btn-large">post</button>
     </form>
@@ -115,7 +126,7 @@ function CategoryFliter() {
           <button className="btn btn-all-category">ALL</button>
         </li>
         {categories.map((cat) => (
-          <li className="category">
+          <li key={cat.name} className="category">
             <button
               className="btn btn-category"
               style={{ backgroundColor: cat.color }}
@@ -134,7 +145,7 @@ function FactList({ facts }) {
     <section>
       <ul className="facts-list">
         {facts.map((fact) => (
-          <li className="fact">
+          <li key={fact.id} className="fact">
             <p>
               {fact.text}
               <span

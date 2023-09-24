@@ -88,6 +88,7 @@ function createFactsList(dataArr) {
             </li>`
   );
 
+  console.log(htmlArr);
   const html = htmlArr.join("");
   factList.insertAdjacentHTML("afterbegin", html);
 }
