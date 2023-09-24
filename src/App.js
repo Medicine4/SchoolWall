@@ -52,7 +52,9 @@ function App() {
   return (
     <>
       <Header showForm={showForm} setShowForm={setShowForm} />
-      {showForm ? <NewFactForm /> : null}
+      {showForm ? (
+        <NewFactForm setFacts={setFacts} setShowForm={setShowForm} />
+      ) : null}
       <main>
         <CategoryFliter />
         <FactList facts={facts} />
@@ -79,14 +81,45 @@ function Header({ showForm, setShowForm }) {
   );
 }
 
-function NewFactForm() {
+function NewFactForm({ setFacts, setShowForm }) {
   const [text, setText] = useState("");
   const [img, setImg] = useState("");
   const [category, setCategory] = useState("");
   const textLength = text.length;
 
+  function handleSubmit(e) {
+    // 1.prebent broser reload
+    e.preventDefault();
+
+    // 2.check if data is valid. if so, create a new fact
+    if (text && category && textLength <= 200) {
+      // 3. create a new fact object
+      const newFact = {
+        id: Math.round(Math.random() * 10000),
+        text,
+        img: "NULL",
+        category,
+        votesInteresting: 0,
+        votesMindblowing: 0,
+        votesFalse: 0,
+        createdIn: new Date().getFullYear(),
+      };
+
+      // 4. add new fact to the ui: add fact to state
+      setFacts((facts) => [newFact, ...facts]);
+
+      //5. reset input fields
+      setText("");
+      setImg("");
+      setCategory("");
+
+      //6. close the form
+      setShowForm(false);
+    }
+  }
+
   return (
-    <form className="fact-form">
+    <form className="fact-form" onSubmit={handleSubmit}>
       <input
         type="text"
         placeholder="写下你的信息~"
