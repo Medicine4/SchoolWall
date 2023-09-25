@@ -232,3 +232,7 @@ ul {
 .vote-button button:hover {
   background-color: #292524;
 }
+
+.vote-button button:disabled {
+  background-color: #44403c;
+}

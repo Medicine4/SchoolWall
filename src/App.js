@@ -68,7 +68,7 @@ function App() {
           .limit(100);
 
         if (!error) setFacts(facts);
-        else alert("There was a problem getting data!");
+        else alert("数据加载出错啦，刷新试试😱");
 
         setIsLoading(false);
       }
@@ -85,7 +85,11 @@ function App() {
       ) : null}
       <main>
         <CategoryFliter setCurCategory={setCurCategory} />
-        {isLoading ? <Loading /> : <FactList facts={facts} />}
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <FactList facts={facts} setFacts={setFacts} />
+        )}
       </main>
     </>
   );
@@ -148,7 +152,8 @@ function NewFactForm({ setFacts, setShowForm }) {
       console.log(newFact);
 
       // 4. add new fact to the ui: add fact to state
-      setFacts((facts) => [newFact[0], ...facts]);
+      if (!error) setFacts((facts) => [newFact[0], ...facts]);
+      else alert("上传失败😭");
 
       setIsUploading(false);
 
@@ -231,7 +236,7 @@ function CategoryFliter({ setCurCategory }) {
   );
 }
 
-function FactList({ facts }) {
+function FactList({ facts, setFacts }) {
   if (facts.length === 0) {
     return <p className="loading">这个类别还没有信息哦，快来分享吧😎</p>;
   }
@@ -240,32 +245,72 @@ function FactList({ facts }) {
     <section>
       <ul className="facts-list">
         {facts.map((fact) => (
-          <li key={fact.id} className="fact">
-            <p>
-              {fact.text}
-              <span
-                className="tag"
-                style={{
-                  backgroundColor: CATEGORIES.find(
-                    (cat) => cat.name === fact.category
-                  )?.color,
-                }}
-              >
-                {fact.category}
-              </span>
-            </p>
-            <div className="imgButton">
-              {fact.img === "" ? "" : <img src={fact.img} />}
-              <div className="vote-button">
-                <button>👍 {fact.votesInteresting}</button>
-                <button>🤯 {fact.votesMindblowing}</button>
-                <button>⛔️ {fact.votesFalse}</button>
-              </div>
-            </div>
-          </li>
+          <Fact key={fact.id} fact={fact} setFacts={setFacts} />
         ))}
       </ul>
     </section>
+  );
+}
+
+function Fact({ fact, setFacts }) {
+  const [isUpdating, setIsUpdating] = useState(false);
+
+  async function handleVote(voteType) {
+    setIsUpdating(true);
+    const { data: updatedFact, error } = await supabase
+      .from("facts")
+      .update({ [voteType]: fact[voteType] + 1 })
+      .eq("id", fact.id)
+      .select();
+    setIsUpdating(false);
+
+    // console.log(updatedFact);
+
+    if (!error)
+      setFacts((facts) =>
+        facts.map((f) => (fact.id === f.id ? updatedFact[0] : f))
+      );
+  }
+
+  return (
+    <li key={fact.id} className="fact">
+      <p>
+        {fact.text}
+        <span
+          className="tag"
+          style={{
+            backgroundColor: CATEGORIES.find(
+              (cat) => cat.name === fact.category
+            )?.color,
+          }}
+        >
+          {fact.category}
+        </span>
+      </p>
+      <div className="imgButton">
+        {fact.img === "" ? "" : <img src={fact.img} />}
+        <div className="vote-button">
+          <button
+            onClick={() => handleVote("votesInteresting")}
+            disabled={isUpdating}
+          >
+            👍 {fact.votesInteresting}
+          </button>
+          <button
+            onClick={() => handleVote("votesMindblowing")}
+            disabled={isUpdating}
+          >
+            🤯 {fact.votesMindblowing}
+          </button>
+          <button
+            onClick={() => handleVote("votesFalse")}
+            disabled={isUpdating}
+          >
+            ⛔️ {fact.votesFalse}
+          </button>
+        </div>
+      </div>
+    </li>
   );
 }
 
