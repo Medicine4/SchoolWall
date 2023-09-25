@@ -50,23 +50,32 @@ function App() {
   const [showForm, setShowForm] = useState(false);
   const [facts, setFacts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [curCategory, setCurCategory] = useState("all");
 
-  useEffect(function () {
-    setIsLoading(true);
-    async function getFacts() {
-      let { data: facts, error } = await supabase
-        .from("facts")
-        .select("*")
-        .order("votesInteresting", { ascending: false })
-        .limit(100);
+  useEffect(
+    function () {
+      setIsLoading(true);
+      async function getFacts() {
+        let query = supabase.from("facts").select("*"); // No data loaded yet, just building the query
 
-      if (!error) setFacts(facts);
-      else alert("There was a problem getting data!");
+        if (curCategory !== "all") {
+          // No data loaded yet
+          query = query.eq("category", curCategory);
+        }
 
-      setIsLoading(false);
-    }
-    getFacts();
-  }, []);
+        let { data: facts, error } = await query // download data, just building the query
+          .order("votesInteresting", { ascending: false })
+          .limit(100);
+
+        if (!error) setFacts(facts);
+        else alert("There was a problem getting data!");
+
+        setIsLoading(false);
+      }
+      getFacts();
+    },
+    [curCategory]
+  );
 
   return (
     <>
@@ -75,7 +84,7 @@ function App() {
         <NewFactForm setFacts={setFacts} setShowForm={setShowForm} />
       ) : null}
       <main>
-        <CategoryFliter />
+        <CategoryFliter setCurCategory={setCurCategory} />
         {isLoading ? <Loading /> : <FactList facts={facts} />}
       </main>
     </>
@@ -172,20 +181,26 @@ function NewFactForm({ setFacts, setShowForm }) {
   );
 }
 
-function CategoryFliter() {
+function CategoryFliter({ setCurCategory }) {
   const categories = CATEGORIES;
 
   return (
     <aside>
       <ul>
         <li className="category">
-          <button className="btn btn-all-category">ALL</button>
+          <button
+            className="btn btn-all-category"
+            onClick={() => setCurCategory("all")}
+          >
+            ALL
+          </button>
         </li>
         {categories.map((cat) => (
           <li key={cat.name} className="category">
             <button
               className="btn btn-category"
               style={{ backgroundColor: cat.color }}
+              onClick={() => setCurCategory(cat.name)}
             >
               {cat.name}
             </button>
@@ -197,6 +212,10 @@ function CategoryFliter() {
 }
 
 function FactList({ facts }) {
+  if (facts.length === 0) {
+    return <p className="loading">这个类别还没有信息哦，快来分享吧😎</p>;
+  }
+
   return (
     <section>
       <ul className="facts-list">
