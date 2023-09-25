@@ -154,6 +154,14 @@ ul {
 
 /* section */
 
+.loading {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 600;
+  margin-top: 24px;
+  text-transform: uppercase;
+}
+
 .section {
   display: block;
 }

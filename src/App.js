@@ -49,11 +49,21 @@ const initialFacts = [
 function App() {
   const [showForm, setShowForm] = useState(false);
   const [facts, setFacts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(function () {
+    setIsLoading(true);
     async function getFacts() {
-      let { data: facts, error } = await supabase.from("facts").select("*");
-      setFacts(facts);
+      let { data: facts, error } = await supabase
+        .from("facts")
+        .select("*")
+        .order("votesInteresting", { ascending: false })
+        .limit(100);
+
+      if (!error) setFacts(facts);
+      else alert("There was a problem getting data!");
+
+      setIsLoading(false);
     }
     getFacts();
   }, []);
@@ -66,10 +76,14 @@ function App() {
       ) : null}
       <main>
         <CategoryFliter />
-        <FactList facts={facts} />
+        {isLoading ? <Loading /> : <FactList facts={facts} />}
       </main>
     </>
   );
+}
+
+function Loading() {
+  return <p className="loading">Loading...</p>;
 }
 
 function Header({ showForm, setShowForm }) {
