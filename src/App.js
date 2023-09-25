@@ -118,27 +118,39 @@ function NewFactForm({ setFacts, setShowForm }) {
   const [img, setImg] = useState("");
   const [category, setCategory] = useState("");
   const textLength = text.length;
+  const [isUploading, setIsUploading] = useState(false);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     // 1.prebent broser reload
     e.preventDefault();
 
     // 2.check if data is valid. if so, create a new fact
     if (text && category && textLength <= 200) {
       // 3. create a new fact object
-      const newFact = {
-        id: Math.round(Math.random() * 10000),
-        text,
-        img: "NULL",
-        category,
-        votesInteresting: 0,
-        votesMindblowing: 0,
-        votesFalse: 0,
-        createdIn: new Date().getFullYear(),
-      };
+      // const newFact = {
+      //   id: Math.round(Math.random() * 10000),
+      //   text,
+      //   img: "NULL",
+      //   category,
+      //   votesInteresting: 0,
+      //   votesMindblowing: 0,
+      //   votesFalse: 0,
+      //   createdIn: new Date().getFullYear(),
+      // };
+
+      setIsUploading(true);
+
+      const { data: newFact, error } = await supabase
+        .from("facts")
+        .insert([{ text, category }])
+        .select();
+
+      console.log(newFact);
 
       // 4. add new fact to the ui: add fact to state
-      setFacts((facts) => [newFact, ...facts]);
+      setFacts((facts) => [newFact[0], ...facts]);
+
+      setIsUploading(false);
 
       //5. reset input fields
       setText("");
@@ -157,6 +169,7 @@ function NewFactForm({ setFacts, setShowForm }) {
         placeholder="写下你的信息~"
         value={text}
         onChange={(e) => setText(e.target.value)}
+        disabled={isUploading}
       />
       <span>{200 - textLength}</span>
       <label for="image">上传图片（可选）：</label>
@@ -167,8 +180,13 @@ function NewFactForm({ setFacts, setShowForm }) {
         accept="image/*"
         value={img}
         onChange={(e) => setImg(e.target.value)}
+        disabled={isUploading}
       />
-      <select value={category} onChange={(e) => setCategory(e.target.value)}>
+      <select
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
+        disabled={isUploading}
+      >
         <option value="">信息类别：</option>
         {CATEGORIES.map((cat) => (
           <option key={cat.name} value={cat.name}>
@@ -176,7 +194,9 @@ function NewFactForm({ setFacts, setShowForm }) {
           </option>
         ))}
       </select>
-      <button className="btn btn-large">post</button>
+      <button className="btn btn-large" disabled={isUploading}>
+        post
+      </button>
     </form>
   );
 }
@@ -228,14 +248,14 @@ function FactList({ facts }) {
                 style={{
                   backgroundColor: CATEGORIES.find(
                     (cat) => cat.name === fact.category
-                  ).color,
+                  )?.color,
                 }}
               >
                 {fact.category}
               </span>
             </p>
             <div className="imgButton">
-              {fact.img === "NULL" ? "" : <img src={fact.img} />}
+              {fact.img === "" ? "" : <img src={fact.img} />}
               <div className="vote-button">
                 <button>👍 {fact.votesInteresting}</button>
                 <button>🤯 {fact.votesMindblowing}</button>
